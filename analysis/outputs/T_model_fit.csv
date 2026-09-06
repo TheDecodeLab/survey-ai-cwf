@@ -1,0 +1,17 @@
+model,n,df_resid,df_model,r2,adj_r2,F,F_p,cov_type,F_inference,note
+primary_ClAIR_HC3,284,273,10,0.52211,0.504605,38.227905,0.0,HC3,robust (HC3),
+primary_ClAIR_classical,284,273,10,0.52211,0.504605,29.826103,0.0,nonrobust,classical,
+complete5_ClAIR_HC3,280,269,10,0.51935,0.501482,37.284541,0.0,HC3,robust (HC3),
+no_AIknowledge_HC3,284,274,9,0.360834,0.339839,20.642541,0.0,HC3,robust (HC3),same records as primary model
+indicator_coding_HC3,284,270,13,0.52789,0.505159,30.754401,0.0,HC3,robust (HC3),Unsure/limited entered as separate indicators
+leave_out_familiarity,284,273,10,0.416653,0.395284,23.623391,0.0,HC3,robust (HC3),
+leave_out_willingness,284,273,10,0.544367,0.527677,44.657299,0.0,HC3,robust (HC3),
+leave_out_general_opinion,284,273,10,0.567778,0.551946,45.846029,0.0,HC3,robust (HC3),
+leave_out_use_confidence,284,273,10,0.516176,0.498454,33.429124,0.0,HC3,robust (HC3),
+leave_out_discuss_confidence,284,273,10,0.472955,0.45365,29.462727,0.0,HC3,robust (HC3),
+practice_subset_HC3,231,220,10,0.519554,0.497716,30.49431,0.0,HC3,robust (HC3),"reference role = Advanced Practitioner; years in specialty = category midpoint, 'more than 20 years' = 25"
+component_OLS_familiarity,284,273,10,0.609496,0.595192,45.399683,0.0,HC3,robust (HC3),
+component_OLS_willingness,283,272,10,0.289941,0.263836,11.299825,0.0,HC3,robust (HC3),
+component_OLS_general_opinion,282,271,10,0.096902,0.063577,2.953616,0.001532,HC3,robust (HC3),
+component_OLS_use_confidence,283,272,10,0.351161,0.327306,21.421377,0.0,HC3,robust (HC3),
+component_OLS_discuss_confidence,283,272,10,0.428596,0.407588,26.143247,0.0,HC3,robust (HC3),

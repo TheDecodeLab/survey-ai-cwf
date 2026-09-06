@@ -1,0 +1,6 @@
+,familiarity,willingness,general_opinion,use_confidence,discuss_confidence
+familiarity,1.0,0.331,0.114,0.502,0.602
+willingness,0.331,1.0,0.612,0.474,0.437
+general_opinion,0.114,0.612,1.0,0.263,0.204
+use_confidence,0.502,0.474,0.263,1.0,0.747
+discuss_confidence,0.602,0.437,0.204,0.747,1.0

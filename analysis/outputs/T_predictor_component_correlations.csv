@@ -1,0 +1,26 @@
+Predictor,ClAIR component,N,Spearman rho
+Self-assessed AI knowledge,Familiarity,302,0.749
+Self-assessed AI knowledge,Willingness,300,0.378
+Self-assessed AI knowledge,General opinion,299,0.209
+Self-assessed AI knowledge,Confidence in use,301,0.562
+Self-assessed AI knowledge,Confidence in discussion,301,0.617
+Prior AI training,Familiarity,302,0.446
+Prior AI training,Willingness,300,0.174
+Prior AI training,General opinion,299,0.126
+Prior AI training,Confidence in use,301,0.341
+Prior AI training,Confidence in discussion,301,0.383
+Prior AI experience,Familiarity,306,0.47
+Prior AI experience,Willingness,305,0.246
+Prior AI experience,General opinion,304,0.16
+Prior AI experience,Confidence in use,300,0.344
+Prior AI experience,Confidence in discussion,300,0.354
+Current AI use,Familiarity,294,0.306
+Current AI use,Willingness,292,0.213
+Current AI use,General opinion,291,0.123
+Current AI use,Confidence in use,293,0.237
+Current AI use,Confidence in discussion,293,0.189
+Perceived likelihood AI will be required,Familiarity,306,0.336
+Perceived likelihood AI will be required,Willingness,305,0.426
+Perceived likelihood AI will be required,General opinion,304,0.265
+Perceived likelihood AI will be required,Confidence in use,300,0.191
+Perceived likelihood AI will be required,Confidence in discussion,300,0.301
