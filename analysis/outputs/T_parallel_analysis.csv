@@ -1,0 +1,6 @@
+component,observed_eigenvalue,random_mean,random_p95,retained
+1,2.761,1.163,1.243,True
+2,1.157,1.069,1.123,True
+3,0.506,0.998,1.038,False
+4,0.338,0.927,0.973,False
+5,0.238,0.843,0.903,False
