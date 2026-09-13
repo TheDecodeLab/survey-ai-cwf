@@ -12,8 +12,9 @@ Fixes carried over from the audit:
           consistently; each row shows its n; the reported p is the
           Monte-Carlo p, since four of fifteen expected cells are below five.
 
-Confidence is an ordered scale, so it is drawn on a diverging orange-grey-blue
-ramp (CVD-safe, and it survives greyscale printing) rather than categorical hues.
+Figure 3 deliberately reuses the original manuscript's five-step confidence
+palette so revised figures remain visually consistent with the submitted
+figures: coral -> orange -> light blue -> medium blue -> blue.
 """
 import argparse
 from pathlib import Path
@@ -26,8 +27,8 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 
 INK = "#1a1a1a"
 MUTED = "#555555"
-# diverging 5-step: low confidence (warm) -> neutral -> high confidence (cool)
-RAMP = ["#8c4513", "#dd8a2e", "#efeeea", "#4a8ab5", "#0f3d5e"]
+# Original manuscript palette used in fig1.py and fig5.py.
+RAMP = ["#FF8A65", "#FFB74D", "#90CAF9", "#64B5F6", "#42A5F5"]
 ORDER = ["Not at all confident", "Slightly confident", "Moderately confident",
          "Very confident", "Extremely confident"]
 TRAIN_ORDER = ["No", "Yes, but very limited", "Yes"]
@@ -106,7 +107,7 @@ def figure3(out, tabs, stats_):
             for y, v, l in zip(ypos, vals, left):
                 if v >= 7:
                     ax.text(l + v / 2, y, f"{v:.0f}%", ha="center", va="center",
-                            fontsize=9, color="white" if j in (0, 3, 4) else INK,
+                            fontsize=9, color=INK,
                             fontweight="semibold")
             left = left + vals
         ax.set_yticks(ypos)
