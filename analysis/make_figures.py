@@ -11,6 +11,8 @@ Fixes carried over from the audit:
           x-axis ticks and a label; the third training level is named
           consistently; each row shows its n; the reported p is the
           Monte-Carlo p, since four of fifteen expected cells are below five.
+          All non-zero stacked-bar segments are labeled; small segments use
+          reduced/rotated labels so percentages remain inside the segment.
 
 Figure 3 deliberately reuses the original manuscript's five-step confidence
 palette so revised figures remain visually consistent with the submitted
@@ -49,8 +51,8 @@ def figure1(out, counts):
     fig, ax = plt.subplots(figsize=(8.2, 5.8), dpi=400)
     ax.set_xlim(0, 100); ax.set_ylim(0, 100); ax.axis("off")
 
-    main_x, main_w = 4, 52          # main chain, left column
-    side_x, side_w = 60, 38         # exclusion branch, right column
+    main_x, main_w = 4, 52
+    side_x, side_w = 60, 38
 
     def box(x, y, w, h, title, sub, weight="bold", fs=10.5):
         ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.6,rounding_size=1.4",
@@ -92,6 +94,31 @@ def figure1(out, counts):
     plt.close(fig)
 
 
+def _label_segment(ax, x_center, y, value):
+    """Place every non-zero percentage inside its Figure 3 bar segment."""
+    if value <= 0:
+        return
+
+    # Very narrow segments need a vertical label to stay within the bar.
+    if value < 4.5:
+        rotation = 90
+        fontsize = 7.2
+    elif value < 7:
+        rotation = 0
+        fontsize = 7.8
+    else:
+        rotation = 0
+        fontsize = 9.0
+
+    label = f"{value:.0f}%" if value >= 1 else f"{value:.1f}%"
+    ax.text(x_center, y, label,
+            ha="center", va="center",
+            fontsize=fontsize, color=INK,
+            fontweight="semibold", rotation=rotation,
+            rotation_mode="anchor", clip_on=True,
+            zorder=5)
+
+
 def figure3(out, tabs, stats_):
     fig, axes = plt.subplots(2, 1, figsize=(8.4, 6.6), dpi=400, sharex=True)
     for ax, (key, ct) in zip(axes, tabs.items()):
@@ -105,11 +132,9 @@ def figure3(out, tabs, stats_):
                     edgecolor="white", linewidth=1.4,
                     label=lvl if ax is axes[0] else None)
             for y, v, l in zip(ypos, vals, left):
-                if v >= 7:
-                    ax.text(l + v / 2, y, f"{v:.0f}%", ha="center", va="center",
-                            fontsize=9, color=INK,
-                            fontweight="semibold")
+                _label_segment(ax, l + v / 2, y, v)
             left = left + vals
+
         ax.set_yticks(ypos)
         ax.set_yticklabels([f"{TRAIN_LABEL[t]}\n(n = {int(ct.loc[t].sum())})"
                             for t in TRAIN_ORDER], fontsize=10)
@@ -152,7 +177,6 @@ def main():
     for key, title in [("use", "Confidence in using AI, by prior AI training"),
                        ("discussion", "Confidence in discussing AI, by prior AI training")]:
         ct = pd.read_csv(T / f"T_training_by_{key}_confidence.csv", index_col=0)
-        # the runner writes numerically coded confidence columns (1..5)
         if not set(ORDER) & set(map(str, ct.columns)):
             ct.columns = [ORDER[int(float(c)) - 1] for c in ct.columns]
         tabs[key] = ct.reindex(index=TRAIN_ORDER, columns=ORDER).fillna(0)
