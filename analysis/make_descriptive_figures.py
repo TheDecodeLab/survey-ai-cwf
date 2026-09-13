@@ -8,7 +8,9 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-COLORS5 = ["#287FB5", "#FF7F0E", "#2CA02C", "#D92525", "#9467BD"]
+# Original manuscript five-step palette used in fig1.py and fig5.py:
+# coral -> orange -> light blue -> medium blue -> blue.
+COLORS5 = ["#FF8A65", "#FFB74D", "#90CAF9", "#64B5F6", "#42A5F5"]
 INK = "#111111"
 
 
