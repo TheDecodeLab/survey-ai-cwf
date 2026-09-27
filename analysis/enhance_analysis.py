@@ -7,6 +7,7 @@ from pathlib import Path
 import json, math
 import numpy as np
 import pandas as pd
+import statsmodels.formula.api as smf
 
 parser = argparse.ArgumentParser(description="Run additional revision analyses.")
 parser.add_argument("--data", required=True, help="Path to the restricted source workbook")
@@ -125,19 +126,24 @@ pd.DataFrame([
  {"Estimate":"Approximate McDonald omega","Value":o0,"Bootstrap 95% CI lower":np.quantile(vals[:,1],.025),"Bootstrap 95% CI upper":np.quantile(vals[:,1],.975)}]).round(3).to_csv(OUT/"T_reliability_uncertainty.csv",index=False)
 
 # Domain-balanced alternative: familiarity, attitudes, confidence each receive one third.
+# Use the same HC3 finite-sample t inference as the primary analysis.
 cc=d.dropna(subset=list(COMP)+["age","woman","knowledge","required","training","experience","current","role"]).copy()
 cc["Equal item weighting"]=cc[list(COMP)].mean(axis=1)
 cc["Domain-balanced weighting"]=(cc["Familiarity"]/3 +(cc["Willingness"]+cc["General opinion"])/6 +
                                   (cc["Confidence in use"]+cc["Confidence in discussion"])/6)
-X,names=design(cc); out=[]
+cc["role"]=pd.Categorical(cc["role"],categories=["Medical Student"]+sorted(set(cc["role"])-{"Medical Student"}))
+formula="score ~ age + woman + knowledge + required + training + experience + current + C(role)"
+out=[]
 for score in ["Equal item weighting","Domain-balanced weighting"]:
-    b,se,r2=ols_hc3(X,cc[score].to_numpy(float))
-    for i,n in enumerate(names):
-        if n in ["Woman","AI knowledge","AI required likelihood"]:
-            out.append({"Scoring":score,"N":len(cc),"R-squared":r2,"Predictor":n,
-                        "Beta":b[i],"HC3 SE":se[i],"95% CI lower":b[i]-1.96*se[i],
-                        "95% CI upper":b[i]+1.96*se[i],"P value":normal_p(b[i]/se[i])})
-pd.DataFrame(out).round(6).to_csv(OUT/"T_domain_weighting_sensitivity.csv",index=False)
+    z=cc.copy(); z["score"]=z[score]
+    m=smf.ols(formula,data=z).fit(cov_type="HC3",use_t=True)
+    ci=m.conf_int()
+    for term,label in [("woman","Woman"),("knowledge","AI knowledge"),("required","AI required likelihood")]:
+        out.append({"Scoring":score,"N":int(m.nobs),"R-squared":m.rsquared,"Predictor":label,
+                    "Beta":m.params[term],"HC3 SE":m.bse[term],
+                    "95% CI lower":ci.loc[term,0],"95% CI upper":ci.loc[term,1],
+                    "P value":m.pvalues[term]})
+pd.DataFrame(out).to_csv(OUT/"T_domain_weighting_sensitivity.csv",index=False)
 
 # Proportional-odds diagnostic: threshold-specific cumulative binary logits.
 po=[]
