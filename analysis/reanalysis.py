@@ -63,10 +63,10 @@ def load(path):
     out["age"] = df["age_group.q1"].map(AGE_MID)
     out["age_group"] = df["age_group.q1"]
     g = df["gender.q2"]
-    out["gender_display"] = np.where(g.eq("Woman"), "Woman",
-                             np.where(g.eq("Man"), "Man",
-                             np.where(g.isin(["Non-binary","Woman, Non-binary"]), "Non-binary",
-                             np.where(g.isna(), "Missing", "Other/none listed"))))
+    out["gender_display"] = pd.Series(np.nan, index=df.index, dtype=object)
+    out.loc[g.eq("Woman"), "gender_display"] = "Woman"
+    out.loc[g.eq("Man"), "gender_display"] = "Man"
+    out.loc[g.isin(["Non-binary","Woman, Non-binary"]), "gender_display"] = "Non-binary"
     out["woman"] = np.where(g.eq("Woman"), 1.0, np.where(g.eq("Man"), 0.0, np.nan))
     out["role"] = df["pro_role.q4"]
     out["ai_knowledge"] = df["ai_knowledge.q17"].map(KNOW)
@@ -112,7 +112,7 @@ def fit_summary(res, label, cov, extra=None):
     d = {"model": label, "n": int(res.nobs), "df_resid": int(res.df_resid),
          "df_model": int(res.df_model), "r2": res.rsquared, "adj_r2": res.rsquared_adj,
          "F": res.fvalue, "F_p": res.f_pvalue, "cov_type": cov,
-         "F_inference": "robust (HC3)" if cov == "HC3" else "classical"}
+         "F_inference": "robust (HC3, finite-sample F)" if cov == "HC3" else "classical"}
     if extra:
         d.update(extra)
     return d
@@ -220,16 +220,16 @@ def main():
     f = "clair ~ " + " + ".join(PREDICTORS) + " + C(role)"
     model_df = df.dropna(subset=["clair"] + PREDICTORS + ["role"])
     m_cls = smf.ols(f, data=model_df).fit()
-    m = smf.ols(f, data=model_df).fit(cov_type="HC3")
+    m = smf.ols(f, data=model_df).fit(cov_type="HC3", use_t=True)
     log["primary_n"] = int(m.nobs)
 
-    prim = tidy(m, "primary_ClAIR_HC3", "HC3 robust; CI, p and SE all from this object")
+    prim = tidy(m, "primary_ClAIR_HC3", "HC3 robust with finite-sample t inference; CI, p and SE all from this object")
     # y-standardized-and-x-standardized betas, numeric predictors only
     sy = model_df["clair"].std(ddof=1)
     std = {}
     for term in m.params.index:
         base = term
-        if term == "Intercept" or term.startswith("C(role)"):
+        if term == "Intercept" or term.startswith("C(role)") or term == "woman":
             std[term] = np.nan
         else:
             std[term] = m.params[term] * model_df[base].std(ddof=1) / sy
@@ -269,13 +269,13 @@ def main():
 
     # ---- sensitivity: complete 5 components ----------------------------------
     sub5 = model_df[model_df["n_components"] == 5]
-    m5 = smf.ols(f, data=sub5).fit(cov_type="HC3")
+    m5 = smf.ols(f, data=sub5).fit(cov_type="HC3", use_t=True)
     fits.append(fit_summary(m5, "complete5_ClAIR_HC3", "HC3"))
     t5 = tidy(m5, "complete5_ClAIR_HC3")
 
     # ---- sensitivity: drop self-assessed knowledge ----------------------------
     f_nok = "clair ~ " + " + ".join([p for p in PREDICTORS if p != "ai_knowledge"]) + " + C(role)"
-    m_nok = smf.ols(f_nok, data=model_df).fit(cov_type="HC3")
+    m_nok = smf.ols(f_nok, data=model_df).fit(cov_type="HC3", use_t=True)
     fits.append(fit_summary(m_nok, "no_AIknowledge_HC3", "HC3",
                             {"note": "same records as primary model"}))
     t_nok = tidy(m_nok, "no_AIknowledge_HC3", "same N as primary")
@@ -290,7 +290,7 @@ def main():
     md2["tr_yes"] = (md2["ai_training"] == 2).astype(float)
     f_ind = ("clair ~ age + woman + ai_knowledge + ai_required_likelihood + "
              "tr_lim + tr_yes + exp_unsure + exp_yes + use_unsure + use_yes + C(role)")
-    m_ind = smf.ols(f_ind, data=md2).fit(cov_type="HC3")
+    m_ind = smf.ols(f_ind, data=md2).fit(cov_type="HC3", use_t=True)
     fits.append(fit_summary(m_ind, "indicator_coding_HC3", "HC3",
                             {"note": "Unsure/limited entered as separate indicators"}))
     t_ind = tidy(m_ind, "indicator_coding_HC3",
@@ -303,7 +303,7 @@ def main():
         d2 = df.copy()
         d2["clair"] = d2[keep].mean(axis=1, skipna=True)
         d2 = d2.dropna(subset=["clair"] + PREDICTORS + ["role"])
-        mm = smf.ols(f, data=d2).fit(cov_type="HC3")
+        mm = smf.ols(f, data=d2).fit(cov_type="HC3", use_t=True)
         tt = tidy(mm, f"leave_out_{drop}")
         loo.append(tt)
         fits.append(fit_summary(mm, f"leave_out_{drop}", "HC3"))
@@ -319,7 +319,7 @@ def main():
                     "Physician"])
     f_pr = ("clair ~ " + " + ".join(PREDICTORS) +
             " + academic_center + years_specialty + C(role)")
-    m_pr = smf.ols(f_pr, data=prac).fit(cov_type="HC3")
+    m_pr = smf.ols(f_pr, data=prac).fit(cov_type="HC3", use_t=True)
     fits.append(fit_summary(m_pr, "practice_subset_HC3", "HC3",
                             {"note": "reference role = Advanced Practitioner; "
                                      "years in specialty = category midpoint, "
@@ -327,14 +327,14 @@ def main():
     t_pr = tidy(m_pr, "practice_subset_HC3")
 
     pd.concat([prim.drop(columns=["standardized_beta"]), t5, t_nok, t_ind, loo, t_pr]) \
-      .round(6).to_csv(out / "T_all_models_coefficients.csv", index=False)
-    pd.DataFrame(fits).round(6).to_csv(out / "T_model_fit.csv", index=False)
+      .to_csv(out / "T_all_models_coefficients.csv", index=False)
+    pd.DataFrame(fits).to_csv(out / "T_model_fit.csv", index=False)
 
     # ---- component-level models (OLS + ordinal) -------------------------------
     rows_ols, rows_ord = [], []
     for nm in comp:
         d2 = df.dropna(subset=[nm] + PREDICTORS + ["role"])
-        mo = smf.ols(f.replace("clair", nm), data=d2).fit(cov_type="HC3")
+        mo = smf.ols(f.replace("clair", nm), data=d2).fit(cov_type="HC3", use_t=True)
         rows_ols.append(tidy(mo, f"component_OLS_{nm}"))
         fits.append(fit_summary(mo, f"component_OLS_{nm}", "HC3"))
         Xo = pd.get_dummies(d2[PREDICTORS + ["role"]], columns=["role"],
@@ -349,9 +349,9 @@ def main():
                 "n": int(om.nobs), "llf": om.llf}))
         except Exception as e:                       # pragma: no cover
             print(f"ordinal model failed for {nm}: {e}", file=sys.stderr)
-    pd.concat(rows_ols).round(6).to_csv(out / "T_component_models_ols.csv", index=False)
+    pd.concat(rows_ols).to_csv(out / "T_component_models_ols.csv", index=False)
     if rows_ord:
-        pd.concat(rows_ord).round(6).to_csv(out / "T_component_models_ordinal.csv", index=False)
+        pd.concat(rows_ord).to_csv(out / "T_component_models_ordinal.csv", index=False)
     pd.DataFrame(fits).round(6).to_csv(out / "T_model_fit.csv", index=False)
 
     # ---- readiness gap --------------------------------------------------------
