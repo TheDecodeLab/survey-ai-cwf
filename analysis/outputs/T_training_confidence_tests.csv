@@ -1,0 +1,3 @@
+outcome,n,chi2,df,asymptotic_p,cells_expected_lt_5,n_cells,min_expected,monte_carlo_p_20000,cramers_V
+use confidence,301,49.7325,8,4.6001659864770106e-08,4,15,0.678,5e-05,0.2874
+discussion confidence,301,56.7226,8,2.0396399114326735e-09,4,15,0.658,5e-05,0.307
