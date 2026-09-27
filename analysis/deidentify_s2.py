@@ -103,7 +103,12 @@ def main():
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
 
-    src = pd.read_excel(a.data)
+    source = pd.read_excel(a.data)
+    comp = ["ai_familiar.q10", "ai_willing_to_use.q12", "ai_use_gen_opinion.q13",
+            "ai_use_confidence.q19", "ai_discuss_confidence.q20"]
+    analytic_mask = source[comp].notna().sum(axis=1) > 0
+    src = source.loc[analytic_mask].copy()  # public S2 is restricted to the 307 analytic respondents
+    excluded = int((~analytic_mask).sum())
     before = k_report(src, QI)
 
     df = src.drop(columns=[c for c in DROP if c in src.columns]).copy()
@@ -179,16 +184,15 @@ def main():
     atyp = ~df["gender.q2"].isin(["Woman", "Man"])
     df.loc[atyp, "gender.q2"] = "Suppressed for confidentiality"
     df.loc[atyp, "pro_role.q4"] = "Suppressed for confidentiality"
-    comp = ["ai_familiar.q10", "ai_willing_to_use.q12", "ai_use_gen_opinion.q13",
-            "ai_use_confidence.q19", "ai_discuss_confidence.q20"]
-    df.insert(0, "included_clair_analysis", df[comp].notna().sum(axis=1) > 0)
-    df.insert(1, "n_clair_components", df[comp].notna().sum(axis=1))
+    df.insert(0, "n_clair_components", src[comp].notna().sum(axis=1).to_numpy())
     QI_final = ["gender.q2", "pro_role.q4"]
     after = k_report(df, QI_final)
 
     notes = pd.DataFrame([
         ["Purpose", "Public Supporting Information dataset for PONE-D-26-19588."],
-        ["Source records", f"{len(src)} records in the analysis workbook."],
+        ["Source and analytic records",
+         f"{len(source)} records in the restricted source workbook; {excluded} records with no ClAIR component "
+         f"were excluded. This public file contains exactly {len(src)} analytic respondents."],
         ["Removed columns",
          "participant_id (direct identifier); age_group.q1 (editorial request); "
          "other_thoughts.q42 and curr_use_which_ai_tools.q38 (open-ended text, not analysed); "
@@ -209,9 +213,9 @@ def main():
          "distributions are given on the 'Withheld variable counts' sheet so the reported "
          "descriptive figures remain verifiable."],
         ["Indirect-identifier assessment",
-         f"Record uniqueness on the combination of gender, race/ethnicity, professional role, "
+         f"Record uniqueness among the analytic respondents on the combination of gender, race/ethnicity, professional role, "
          f"academic-centre status, practice setting, specialty and years in specialty. "
-         f"Source workbook: {before['unique_k1']}/{before['rows']} records unique "
+         f"Before disclosure control: {before['unique_k1']}/{before['rows']} records unique "
          f"({100*before['unique_k1']/before['rows']:.0f}%). After collapsing write-ins and "
          f"categories: {after_collapse['unique_k1']}/{after_collapse['rows']} "
          f"({100*after_collapse['unique_k1']/after_collapse['rows']:.0f}%). "
@@ -225,8 +229,8 @@ def main():
          "age-adjusted models in Table 2 and S3 cannot be regenerated from this file. "
          "Age-adjusted and practice-subset models therefore require approved access to the restricted workbook."],
         ["Analytic sample",
-         "The manuscript analyses the 307 records with at least one ClAIR component; "
-         "7 records with no component response were excluded."],
+         f"This public file contains all {len(src)} analytic respondents and excludes the {excluded} records "
+         "with no ClAIR component response."],
     ], columns=["Item", "Detail"])
 
     def source_item(c):
@@ -234,8 +238,7 @@ def main():
         return f"Q{m.group(1)}" if m else "Derived"
     dic = pd.DataFrame({"column": df.columns,
                         "source item": [source_item(c) for c in df.columns],
-                        "definition": ["Record has at least one non-missing ClAIR component." if c=="included_clair_analysis" else
-                                       "Number of non-missing ClAIR components among Q10, Q12, Q13, Q19, and Q20." if c=="n_clair_components" else
+                        "definition": ["Number of non-missing ClAIR components among Q10, Q12, Q13, Q19, and Q20." if c=="n_clair_components" else
                                        f"Survey response to {source_item(c)}; see S1 for the complete item wording and response options." for c in df.columns],
                         "released values / coding": ["; ".join(sorted(map(str,df[c].dropna().unique())))[:1000] for c in df.columns],
                         "missingness": ["Blank means not answered or structurally skipped; see S1 for survey logic." for _ in df.columns],
