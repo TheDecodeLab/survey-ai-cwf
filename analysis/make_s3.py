@@ -46,7 +46,7 @@ def fmt(x, dp=3):
         return ""
     if isinstance(x, str):
         return x
-    if abs(x) < 1e-4 and x != 0:
+    if abs(x) < 1e-3 and x != 0:
         return f"{x:.2e}"
     if float(x).is_integer() and abs(x) >= 1:
         return f"{int(x):,}"
@@ -116,9 +116,9 @@ def main():
                                      "n_missing": "N missing", "pct_missing": "Missing (%)"}),
               "Table S1. Missingness and structural non-applicability (N = %d)" % log["analytic_n"],
               "Academic-centre status and years in specialty are structurally non-applicable to "
-              "medical students and residents/fellows. Gender counts the woman-versus-man "
-              "regression coding: non-binary, other and missing responses are excluded from that "
-              "term and retained descriptively.", dp=1)
+              "medical students and residents/fellows. Gender (displayed categories) counts only "
+              "Woman, Man, and Non-binary responses shown in Table 1; the woman-versus-man "
+              "regression term contains 297 respondents.", dp=1)
 
     # ---- S2/S3 correlations
     for f, nm, lab in [("T_interitem_pearson.csv", "Table S2. Pearson inter-item correlations",
@@ -174,9 +174,9 @@ def main():
                                       "F_p": "F p-value", "F_inference": "F inference"}),
               "Table S6. Model fit for the primary and sensitivity models",
               "The primary model is reported twice to make the inference basis explicit: the "
-              "robust Wald F (HC3) and the classical F differ, and the manuscript reports the "
-              "classical F alongside HC3 coefficient inference. Both are given here so the "
-              "basis of every reported statistic is unambiguous.")
+              "robust Wald F (HC3) and the classical F differ. Coefficient-level primary inference "
+              "uses HC3 standard errors with finite-sample t reference distributions; classical "
+              "fit statistics are labelled separately.")
 
     # ---- S7 primary coefficients
     co = pd.read_csv(T / "T_primary_model.csv")
@@ -203,7 +203,7 @@ def main():
          "variance self-assessed knowledge accounts for; it does not by itself demonstrate "
          "conceptual overlap, because removing any strongly associated predictor lowers "
          "R-squared. Overlap is addressed by the conceptual definitions in the Methods and by "
-         "the inter-item and predictor correlations in Tables S2 and S3."),
+         "the predictor-component correlations in Table S24."),
         ("indicator_coding_HC3",
          "Table S10. Sensitivity analysis: indicator coding for 'unsure' and 'very limited'",
          "The primary model codes AI experience and current AI use as 0 = no, 1 = unsure, "
@@ -219,6 +219,8 @@ def main():
     ]:
         sub = allc[allc["model"] == label].copy()
         sub["term"] = sub["term"].map(lambda v: TERM.get(v, v))
+        if label == "practice_subset_HC3":
+            sub.loc[sub["term"] == "Role: physician (reference: medical student)", "term"] = "Role: physician (reference: advanced practitioner)"
         add_table(doc, sub[["term", "beta", "se", "ci_low", "ci_high", "p"]]
                   .rename(columns={"term": "Predictor", "beta": "Beta", "se": "HC3 SE",
                                    "ci_low": "95% CI lower", "ci_high": "95% CI upper",
