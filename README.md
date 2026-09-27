@@ -4,7 +4,7 @@ This repository contains the reproducible analysis for the PLOS ONE manuscript, 
 
 ## Data access and privacy
 
-The complete participant-level workbook is restricted because combinations of demographic and professional variables and participant-authored text can identify respondents. Do not commit that workbook to this public repository. The manuscript Supporting Information provides a de-identified dataset. Variables withheld at row level remain available as aggregate counts.
+The complete participant-level workbook is restricted because combinations of demographic and professional variables and participant-authored text can identify respondents. Do not commit that workbook to this public repository. The manuscript Supporting Information provides a disclosure-controlled dataset restricted to the 307 analytic respondents. Variables withheld at row level remain available as aggregate counts.
 
 Authorized investigators can run the complete analysis with the restricted workbook. Access requests require Penn State institutional review and a data-use agreement. Approval is not guaranteed.
 
@@ -29,7 +29,7 @@ Random procedures use fixed seeds. The reliability bootstrap uses seed `20260905
 
 ## Analysis map
 
-`analysis/reanalysis.py` creates the primary ClAIR regression, internally consistent HC3 confidence intervals, sensitivity models, residual diagnostics, ordinal models, sparse-cell permutation tests, descriptive tables, and robustness outputs. `analysis/enhance_analysis.py` creates predictor-component correlations, bootstrap uncertainty for alpha and omega, the domain-balanced score sensitivity model, and threshold-specific ordinal diagnostics.
+`analysis/reanalysis.py` creates the primary ClAIR regression with HC3 standard errors and finite-sample t/F reference distributions, internally consistent confidence intervals and p-values, sensitivity models, residual diagnostics, ordinal models, sparse-cell permutation tests, descriptive tables, and robustness outputs. `analysis/enhance_analysis.py` creates predictor-component correlations, bootstrap uncertainty for alpha and omega, the domain-balanced score sensitivity model, and threshold-specific ordinal diagnostics.
 
 `analysis/make_figures.py` generates Figures 1 and 3 from the analysis outputs. `analysis/make_descriptive_figures.py` generates Figures 2, 4, and 5 directly from the source workbook. It identifies fixed multi-select options by exact phrase matching and does not split participant text at commas.
 
