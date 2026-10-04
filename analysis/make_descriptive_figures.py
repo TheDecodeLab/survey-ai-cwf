@@ -106,15 +106,25 @@ def figure2(df, out):
     save(fig, out)
 
 
-def workflow_percentages(df, col):
+def workflow_percentages_display(df, col):
+    """Return raw bar widths and one-decimal display percentages.
+
+    The first three displayed values are rounded normally. The displayed
+    "More than one answer" value is the residual needed to close the row at
+    exactly 100.0%, matching the manuscript presentation. Bar widths still
+    use the raw percentages calculated from respondent counts.
+    """
     s = df[col].dropna().astype(str)
-    counts = [
+    counts = np.array([
         s.eq("Decrease").sum(),
         s.eq("No_impact").sum(),
         s.eq("Increase").sum(),
         s.str.contains(",", regex=False).sum(),
-    ]
-    return np.array(counts, dtype=float) / len(s) * 100
+    ], dtype=float)
+    raw = counts / len(s) * 100.0
+    display = np.round(raw, 1)
+    display[-1] = np.round(100.0 - display[:-1].sum(), 1)
+    return raw, display
 
 
 def option_count(series, phrase):
@@ -147,17 +157,25 @@ def figure4(df, out):
     )
 
     y = np.arange(len(workflow_data))
-    vals = np.vstack([workflow_percentages(df, col) for _, col in workflow_data])
+    raw_vals = []
+    disp_vals = []
+    for _, col in workflow_data:
+        raw, disp = workflow_percentages_display(df, col)
+        raw_vals.append(raw)
+        disp_vals.append(disp)
+    raw_vals = np.vstack(raw_vals)
+    disp_vals = np.vstack(disp_vals)
+
     left = np.zeros(len(workflow_data))
     for j, (cat, color) in enumerate(zip(cats, COLORS4)):
-        ax1.barh(y, vals[:, j], left=left, height=0.60,
+        ax1.barh(y, raw_vals[:, j], left=left, height=0.60,
                  color=color, edgecolor="white", linewidth=0.6, label=cat)
-        for i, v in enumerate(vals[:, j]):
-            if v > 0:
-                ax1.text(left[i] + v / 2, i, f"{v:.1f}%",
+        for i, (raw_v, disp_v) in enumerate(zip(raw_vals[:, j], disp_vals[:, j])):
+            if raw_v > 0:
+                ax1.text(left[i] + raw_v / 2, i, f"{disp_v:.1f}%",
                          ha="center", va="center", fontsize=8.8,
-                         fontweight="bold", rotation=90 if v < 3 else 0)
-        left += vals[:, j]
+                         fontweight="bold", rotation=90 if raw_v < 3 else 0)
+        left += raw_vals[:, j]
 
     ax1.set_xlim(0, 100)
     ax1.set_xticks(range(0, 101, 10))
