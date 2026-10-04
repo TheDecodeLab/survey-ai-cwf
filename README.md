@@ -41,4 +41,11 @@ Validate a completed build against the committed machine-readable results:
 python analysis/validate_reproducibility.py --build build --expected analysis/outputs
 ```
 
-The committed CSV and JSON files in `analysis/outputs/` are the values used in the revision. The committed images in `figures/final/` are the regenerated manuscript figures. `docs/variable_dictionary.csv` documents the fields in the de-identified dataset.
+The committed CSV and JSON files in `analysis/outputs/` are the values used in the revision. Manuscript figure PNGs are generated locally rather than versioned, so the code remains the single source of truth and stale image binaries cannot drift from it. To write the five submission figures directly to `figures/final/`, run:
+
+```bash
+python analysis/make_figures.py --tables analysis/outputs --outdir figures/final
+python analysis/make_descriptive_figures.py --data "/authorized/path/S2 Survey Data.xlsx" --outdir figures/final
+```
+
+`docs/variable_dictionary.csv` documents the fields in the de-identified dataset.
