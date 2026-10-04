@@ -1,0 +1,48 @@
+variable,category,n
+med_specialty.q8,Other,74
+med_specialty.q8,(missing),53
+med_specialty.q8,Pediatrics,26
+med_specialty.q8,Family Practice,20
+med_specialty.q8,Neurology,15
+med_specialty.q8,Radiology,15
+med_specialty.q8,Cardiology,15
+med_specialty.q8,Emergency Medicine,10
+med_specialty.q8,"Pulmonology, Allergy, and Critical Care Medicine",10
+med_specialty.q8,Hospital Medicine,9
+med_specialty.q8,General Internal Medicine,9
+med_specialty.q8,Psychiatry and Behavioral Health,8
+med_specialty.q8,Obstetrics and Gynecology,7
+med_specialty.q8,Hematology and Oncology,7
+med_specialty.q8,General Surgery,6
+med_specialty.q8,Nephrology,6
+med_specialty.q8,Gastroenterology and Hepatology,6
+med_specialty.q8,Otolaryngology (ENT),5
+med_specialty.q8,Endocrinology and Diabetes,5
+med_specialty.q8,Podiatry,2
+med_specialty.q8,Geriatric Medicine,2
+med_specialty.q8,Optomotry and Opthalmology,1
+med_specialty.q8,Rheumatology,1
+med_specialty.q8,Dermatology,1
+med_specialty.q8,Infectious Diseases,1
+med_prac_region.q6,Suburban,202
+med_prac_region.q6,(missing),53
+med_prac_region.q6,Rural,39
+med_prac_region.q6,Urban,18
+med_prac_region.q6,Prefer not to answer,2
+race_ethnicity.q3,White,237
+race_ethnicity.q3,Asian,38
+race_ethnicity.q3,Middle Eastern/North African,10
+race_ethnicity.q3,More than one selection,9
+race_ethnicity.q3,Black,6
+race_ethnicity.q3,"Hispanic, Latino, or Spanish",6
+race_ethnicity.q3,Other or not reported,6
+race_ethnicity.q3,American Indian/Alaska Native,1
+race_ethnicity.q3,(missing),1
+at_academic_center.q5,Yes,196
+at_academic_center.q5,(missing),63
+at_academic_center.q5,No,55
+yrs_experience_speciality.q9,more than 20 years,78
+yrs_experience_speciality.q9,0-5 years,64
+yrs_experience_speciality.q9,6-10 years,60
+yrs_experience_speciality.q9,11-20 years,59
+yrs_experience_speciality.q9,(missing),53

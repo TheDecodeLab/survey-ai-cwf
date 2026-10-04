@@ -1,0 +1,113 @@
+model,term,beta,se,ci_low,ci_high,p,note
+primary_ClAIR_HC3,Intercept,0.947043,0.234985,0.486481,1.407606,5.6e-05,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.304014,0.108627,0.091108,0.516919,0.005131,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,C(role)[T.Physician],0.268947,0.105666,0.061846,0.476049,0.01092,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,C(role)[T.Resident or Fellow],-0.018466,0.165769,-0.343368,0.306435,0.911302,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,age,-0.002043,0.002885,-0.007698,0.003612,0.478807,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,woman,-0.264238,0.067996,-0.397508,-0.130968,0.000102,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,ai_knowledge,0.435767,0.049047,0.339638,0.531897,0.0,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,ai_required_likelihood,0.219698,0.058195,0.105638,0.333758,0.00016,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,ai_training,0.082115,0.064248,-0.043809,0.208038,0.201217,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,ai_experience,0.012717,0.046323,-0.078075,0.103509,0.783681,"HC3 robust; CI, p and SE all from this object"
+primary_ClAIR_HC3,current_ai_use,0.030744,0.043291,-0.054104,0.115593,0.47759,"HC3 robust; CI, p and SE all from this object"
+complete5_ClAIR_HC3,Intercept,0.931636,0.235322,0.470413,1.392858,7.5e-05,
+complete5_ClAIR_HC3,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.306348,0.109514,0.091705,0.520991,0.005152,
+complete5_ClAIR_HC3,C(role)[T.Physician],0.268556,0.107826,0.057221,0.479891,0.012751,
+complete5_ClAIR_HC3,C(role)[T.Resident or Fellow],-0.014458,0.166812,-0.341402,0.312487,0.930933,
+complete5_ClAIR_HC3,age,-0.001649,0.002959,-0.007448,0.004151,0.577408,
+complete5_ClAIR_HC3,woman,-0.261636,0.068763,-0.396409,-0.126863,0.000142,
+complete5_ClAIR_HC3,ai_knowledge,0.435873,0.049623,0.338614,0.533131,0.0,
+complete5_ClAIR_HC3,ai_required_likelihood,0.219558,0.058171,0.105544,0.333572,0.00016,
+complete5_ClAIR_HC3,ai_training,0.095556,0.066157,-0.034108,0.225221,0.148627,
+complete5_ClAIR_HC3,ai_experience,0.006295,0.048881,-0.08951,0.102099,0.897534,
+complete5_ClAIR_HC3,current_ai_use,0.033536,0.043892,-0.052492,0.119563,0.444842,
+no_AIknowledge_HC3,Intercept,1.51856,0.263574,1.001965,2.035154,0.0,same N as primary
+no_AIknowledge_HC3,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.228591,0.12571,-0.017796,0.474978,0.069003,same N as primary
+no_AIknowledge_HC3,C(role)[T.Physician],0.325872,0.118871,0.09289,0.558855,0.006118,same N as primary
+no_AIknowledge_HC3,C(role)[T.Resident or Fellow],-0.036305,0.25335,-0.532862,0.460251,0.886053,same N as primary
+no_AIknowledge_HC3,age,-0.002482,0.003244,-0.008841,0.003876,0.444157,same N as primary
+no_AIknowledge_HC3,woman,-0.297426,0.081349,-0.456867,-0.137985,0.000256,same N as primary
+no_AIknowledge_HC3,ai_required_likelihood,0.318957,0.06579,0.190011,0.447903,1e-06,same N as primary
+no_AIknowledge_HC3,ai_training,0.214148,0.071859,0.073308,0.354989,0.002881,same N as primary
+no_AIknowledge_HC3,ai_experience,0.149026,0.04969,0.051636,0.246417,0.002707,same N as primary
+no_AIknowledge_HC3,current_ai_use,0.07894,0.047175,-0.013522,0.171402,0.094262,same N as primary
+indicator_coding_HC3,Intercept,0.983219,0.239828,0.513165,1.453274,4.1e-05,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.307647,0.110964,0.090161,0.525133,0.005563,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,C(role)[T.Physician],0.255566,0.107101,0.045652,0.465479,0.017023,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,C(role)[T.Resident or Fellow],-0.020969,0.174749,-0.36347,0.321532,0.904486,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,age,-0.00187,0.002884,-0.007523,0.003783,0.516729,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,woman,-0.265439,0.067895,-0.398511,-0.132368,9.2e-05,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,ai_knowledge,0.426177,0.049438,0.32928,0.523073,0.0,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,ai_required_likelihood,0.218767,0.058786,0.10355,0.333985,0.000198,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,tr_lim,0.111571,0.086867,-0.058686,0.281828,0.199006,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,tr_yes,0.078651,0.137681,-0.191198,0.3485,0.567825,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,exp_unsure,-0.082383,0.095373,-0.26931,0.104544,0.387697,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,exp_yes,0.036674,0.098831,-0.157031,0.230379,0.710581,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,use_unsure,-0.098401,0.097978,-0.290435,0.093632,0.315224,tests the linear No<Unsure<Yes assumption
+indicator_coding_HC3,use_yes,0.090394,0.094421,-0.094667,0.275455,0.338389,tests the linear No<Unsure<Yes assumption
+leave_out_familiarity,Intercept,1.127379,0.273859,0.590626,1.664132,3.8e-05,
+leave_out_familiarity,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.455525,0.125117,0.210301,0.70075,0.000272,
+leave_out_familiarity,C(role)[T.Physician],0.356461,0.122772,0.115832,0.597089,0.003691,
+leave_out_familiarity,C(role)[T.Resident or Fellow],0.057418,0.202316,-0.339114,0.453949,0.776562,
+leave_out_familiarity,age,-0.004284,0.003454,-0.011053,0.002486,0.214876,
+leave_out_familiarity,woman,-0.318698,0.078624,-0.472799,-0.164598,5e-05,
+leave_out_familiarity,ai_knowledge,0.397632,0.055912,0.288046,0.507217,0.0,
+leave_out_familiarity,ai_required_likelihood,0.231685,0.06926,0.095937,0.367433,0.000822,
+leave_out_familiarity,ai_training,0.075745,0.076986,-0.075145,0.226635,0.325174,
+leave_out_familiarity,ai_experience,0.005752,0.054301,-0.100676,0.11218,0.915638,
+leave_out_familiarity,current_ai_use,0.025681,0.052543,-0.077301,0.128663,0.625005,
+leave_out_willingness,Intercept,0.838493,0.22713,0.393326,1.28366,0.000223,
+leave_out_willingness,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.239586,0.111647,0.020762,0.458409,0.031879,
+leave_out_willingness,C(role)[T.Physician],0.200284,0.108718,-0.012799,0.413367,0.065441,
+leave_out_willingness,C(role)[T.Resident or Fellow],-0.12531,0.150707,-0.42069,0.17007,0.405701,
+leave_out_willingness,age,-0.00012,0.002882,-0.005769,0.005529,0.966879,
+leave_out_willingness,woman,-0.271661,0.0688,-0.406506,-0.136816,7.9e-05,
+leave_out_willingness,ai_knowledge,0.474191,0.04901,0.378134,0.570249,0.0,
+leave_out_willingness,ai_required_likelihood,0.164303,0.052679,0.061055,0.267551,0.001815,
+leave_out_willingness,ai_training,0.111028,0.064772,-0.015924,0.237979,0.086506,
+leave_out_willingness,ai_experience,0.008411,0.046891,-0.083494,0.100316,0.857648,
+leave_out_willingness,current_ai_use,0.02125,0.043888,-0.06477,0.10727,0.628257,
+leave_out_general_opinion,Intercept,0.457207,0.241693,-0.016501,0.930916,0.058532,
+leave_out_general_opinion,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.300267,0.112461,0.079847,0.520687,0.007586,
+leave_out_general_opinion,C(role)[T.Physician],0.265066,0.108586,0.052242,0.47789,0.014643,
+leave_out_general_opinion,C(role)[T.Resident or Fellow],-0.030258,0.170214,-0.36387,0.303355,0.858909,
+leave_out_general_opinion,age,-0.001202,0.003009,-0.0071,0.004697,0.689691,
+leave_out_general_opinion,woman,-0.235925,0.070451,-0.374006,-0.097844,0.000812,
+leave_out_general_opinion,ai_knowledge,0.531559,0.052271,0.42911,0.634007,0.0,
+leave_out_general_opinion,ai_required_likelihood,0.226293,0.060731,0.107262,0.345323,0.000194,
+leave_out_general_opinion,ai_training,0.09734,0.065845,-0.031714,0.226394,0.139322,
+leave_out_general_opinion,ai_experience,0.004427,0.04946,-0.092513,0.101366,0.928686,
+leave_out_general_opinion,current_ai_use,0.039516,0.047262,-0.053116,0.132149,0.403094,
+leave_out_use_confidence,Intercept,1.105683,0.238631,0.637976,1.57339,4e-06,
+leave_out_use_confidence,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.203222,0.109024,-0.01046,0.416905,0.062319,
+leave_out_use_confidence,C(role)[T.Physician],0.243559,0.106619,0.03459,0.452529,0.022349,
+leave_out_use_confidence,C(role)[T.Resident or Fellow],-0.008595,0.175429,-0.352429,0.335239,0.960925,
+leave_out_use_confidence,age,-0.002077,0.002755,-0.007477,0.003323,0.450922,
+leave_out_use_confidence,woman,-0.247033,0.068418,-0.38113,-0.112937,0.000305,
+leave_out_use_confidence,ai_knowledge,0.393498,0.047668,0.30007,0.486925,0.0,
+leave_out_use_confidence,ai_required_likelihood,0.250665,0.05855,0.135909,0.36542,1.9e-05,
+leave_out_use_confidence,ai_training,0.065907,0.064043,-0.059615,0.191429,0.303427,
+leave_out_use_confidence,ai_experience,0.022816,0.045952,-0.067249,0.112881,0.619536,
+leave_out_use_confidence,current_ai_use,0.0283,0.042009,-0.054035,0.110636,0.500517,
+leave_out_discuss_confidence,Intercept,1.206455,0.242865,0.730448,1.682462,1e-06,
+leave_out_discuss_confidence,C(role)[T.Advanced Practitioner (Nurse Practitioner or Physician Assistant)],0.321468,0.111702,0.102536,0.5404,0.004003,
+leave_out_discuss_confidence,C(role)[T.Physician],0.279367,0.108292,0.067119,0.491615,0.009887,
+leave_out_discuss_confidence,C(role)[T.Resident or Fellow],0.014414,0.163239,-0.305529,0.334356,0.92964,
+leave_out_discuss_confidence,age,-0.002535,0.002855,-0.00813,0.003061,0.374615,
+leave_out_discuss_confidence,woman,-0.247872,0.070468,-0.385987,-0.109756,0.000436,
+leave_out_discuss_confidence,ai_knowledge,0.381956,0.050229,0.283508,0.480404,0.0,
+leave_out_discuss_confidence,ai_required_likelihood,0.225544,0.060079,0.107791,0.343297,0.000174,
+leave_out_discuss_confidence,ai_training,0.060552,0.068773,-0.07424,0.195345,0.378607,
+leave_out_discuss_confidence,ai_experience,0.02218,0.04878,-0.073428,0.117787,0.649335,
+leave_out_discuss_confidence,current_ai_use,0.038974,0.041789,-0.042931,0.12088,0.351008,
+practice_subset_HC3,Intercept,1.338793,0.273815,0.802126,1.87546,1e-06,
+practice_subset_HC3,C(role)[T.Physician],-0.057145,0.100919,-0.254943,0.140652,0.571225,
+practice_subset_HC3,age,-0.006469,0.004636,-0.015556,0.002618,0.162933,
+practice_subset_HC3,woman,-0.321673,0.081394,-0.481202,-0.162143,7.7e-05,
+practice_subset_HC3,ai_knowledge,0.436338,0.057998,0.322664,0.550012,0.0,
+practice_subset_HC3,ai_required_likelihood,0.247273,0.067591,0.114797,0.37975,0.000254,
+practice_subset_HC3,ai_training,0.114245,0.077658,-0.037961,0.266452,0.141254,
+practice_subset_HC3,ai_experience,-0.023764,0.05582,-0.133169,0.085641,0.67031,
+practice_subset_HC3,current_ai_use,0.039467,0.049993,-0.058518,0.137452,0.42985,
+practice_subset_HC3,academic_center,-0.038217,0.107935,-0.249764,0.173331,0.723285,
+practice_subset_HC3,years_specialty,0.00819,0.007131,-0.005787,0.022167,0.250794,
