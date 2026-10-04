@@ -1,0 +1,61 @@
+Outcome,Threshold,N,Predictor,Log-odds,SE,95% CI lower,95% CI upper
+Familiarity,> 1,284,Woman,-0.942,0.525,-1.972,0.088
+Familiarity,> 1,284,AI knowledge,1.555,0.374,0.821,2.288
+Familiarity,> 1,284,AI required likelihood,0.349,0.289,-0.217,0.916
+Familiarity,> 2,284,Woman,-0.052,0.391,-0.818,0.714
+Familiarity,> 2,284,AI knowledge,2.405,0.346,1.726,3.083
+Familiarity,> 2,284,AI required likelihood,0.993,0.323,0.359,1.626
+Familiarity,> 3,284,Woman,0.284,0.51,-0.714,1.283
+Familiarity,> 3,284,AI knowledge,2.284,0.481,1.34,3.227
+Familiarity,> 3,284,AI required likelihood,0.438,0.511,-0.562,1.439
+Familiarity,> 4,284,Woman,5.235,484.25,-943.894,954.365
+Familiarity,> 4,284,AI knowledge,37.024,117.703,-193.674,267.722
+Familiarity,> 4,284,AI required likelihood,10.765,488.995,-947.666,969.196
+Willingness,> 1,283,Woman,-0.488,0.969,-2.388,1.411
+Willingness,> 1,283,AI knowledge,-1.226,0.644,-2.488,0.036
+Willingness,> 1,283,AI required likelihood,1.289,0.576,0.16,2.417
+Willingness,> 2,283,Woman,-0.29,0.412,-1.098,0.518
+Willingness,> 2,283,AI knowledge,0.834,0.276,0.293,1.374
+Willingness,> 2,283,AI required likelihood,0.679,0.26,0.17,1.188
+Willingness,> 3,283,Woman,-0.495,0.296,-1.076,0.086
+Willingness,> 3,283,AI knowledge,0.647,0.205,0.245,1.049
+Willingness,> 3,283,AI required likelihood,1.085,0.244,0.607,1.562
+Willingness,> 4,283,Woman,-0.692,0.394,-1.464,0.08
+Willingness,> 4,283,AI knowledge,0.83,0.266,0.309,1.351
+Willingness,> 4,283,AI required likelihood,1.438,0.401,0.653,2.223
+General opinion,> 1,282,Woman,-1.73,0.89,-3.474,0.015
+General opinion,> 1,282,AI knowledge,-1.421,0.502,-2.406,-0.436
+General opinion,> 1,282,AI required likelihood,0.527,0.536,-0.523,1.577
+General opinion,> 2,282,Woman,-0.928,0.442,-1.795,-0.061
+General opinion,> 2,282,AI knowledge,-0.351,0.267,-0.874,0.171
+General opinion,> 2,282,AI required likelihood,0.033,0.314,-0.582,0.648
+General opinion,> 3,282,Woman,-0.794,0.281,-1.344,-0.244
+General opinion,> 3,282,AI knowledge,0.3,0.187,-0.066,0.665
+General opinion,> 3,282,AI required likelihood,0.501,0.208,0.093,0.91
+General opinion,> 4,282,Woman,-0.711,0.47,-1.633,0.211
+General opinion,> 4,282,AI knowledge,0.725,0.302,0.134,1.317
+General opinion,> 4,282,AI required likelihood,1.308,0.493,0.342,2.274
+Confidence in use,> 1,283,Woman,-0.522,0.341,-1.191,0.147
+Confidence in use,> 1,283,AI knowledge,1.195,0.24,0.725,1.665
+Confidence in use,> 1,283,AI required likelihood,0.163,0.225,-0.278,0.605
+Confidence in use,> 2,283,Woman,-0.604,0.302,-1.195,-0.013
+Confidence in use,> 2,283,AI knowledge,1.32,0.243,0.844,1.795
+Confidence in use,> 2,283,AI required likelihood,-0.113,0.23,-0.563,0.338
+Confidence in use,> 3,283,Woman,-1.04,0.461,-1.943,-0.137
+Confidence in use,> 3,283,AI knowledge,1.456,0.343,0.784,2.128
+Confidence in use,> 3,283,AI required likelihood,0.731,0.416,-0.085,1.546
+Confidence in use,> 4,283,Woman,-2.587,0.997,-4.541,-0.634
+Confidence in use,> 4,283,AI knowledge,1.703,0.56,0.605,2.802
+Confidence in use,> 4,283,AI required likelihood,1.195,0.913,-0.595,2.985
+Confidence in discussion,> 1,283,Woman,-1.255,0.348,-1.936,-0.574
+Confidence in discussion,> 1,283,AI knowledge,1.259,0.244,0.78,1.737
+Confidence in discussion,> 1,283,AI required likelihood,0.736,0.241,0.263,1.209
+Confidence in discussion,> 2,283,Woman,-0.638,0.322,-1.27,-0.007
+Confidence in discussion,> 2,283,AI knowledge,1.757,0.28,1.208,2.307
+Confidence in discussion,> 2,283,AI required likelihood,0.086,0.259,-0.422,0.593
+Confidence in discussion,> 3,283,Woman,-0.668,0.452,-1.555,0.219
+Confidence in discussion,> 3,283,AI knowledge,1.734,0.365,1.018,2.449
+Confidence in discussion,> 3,283,AI required likelihood,0.389,0.429,-0.452,1.231
+Confidence in discussion,> 4,283,Woman,-0.265,0.812,-1.857,1.328
+Confidence in discussion,> 4,283,AI knowledge,1.617,0.511,0.615,2.619
+Confidence in discussion,> 4,283,AI required likelihood,1.374,1.118,-0.818,3.566

@@ -1,0 +1,6 @@
+{
+  "complete_five_n": 297,
+  "bootstrap_replicates": 10000,
+  "domain_weighting_n": 280,
+  "note": "Ordinal assumption assessed with threshold-specific cumulative logits."
+}

@@ -1,0 +1,45 @@
+{
+  "records_in_workbook": 314,
+  "excluded_no_clair_component": 7,
+  "analytic_n": 307,
+  "component_completion": {
+    "5": 297,
+    "4": 3,
+    "3": 7
+  },
+  "clair": {
+    "mean": 2.7736,
+    "sd": 0.7572,
+    "median": 2.8,
+    "q1": 2.2,
+    "q3": 3.2,
+    "min": 1.2,
+    "max": 4.8,
+    "pct_at_floor_1": 0.0,
+    "pct_at_ceiling_5": 0.0
+  },
+  "structural_n": 297,
+  "reliability": {
+    "standardized_alpha": 0.789,
+    "mcdonald_omega_approx": 0.8,
+    "eigenvalues": [
+      2.761,
+      1.157,
+      0.506,
+      0.338,
+      0.238
+    ]
+  },
+  "primary_n": 284,
+  "diagnostics": {
+    "breusch_pagan_LM": 23.8332,
+    "breusch_pagan_p": 0.00806,
+    "max_cooks_d": 0.04865,
+    "n_cooks_gt_4_over_n": 15,
+    "shapiro_wilk_p": 0.04348,
+    "ramsey_reset_F": 1.9528,
+    "ramsey_reset_p": 0.16342,
+    "vif_min": 1.165,
+    "vif_max": 3.232
+  }
+}

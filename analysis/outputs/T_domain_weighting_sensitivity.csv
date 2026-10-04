@@ -1,0 +1,7 @@
+Scoring,N,R-squared,Predictor,Beta,HC3 SE,95% CI lower,95% CI upper,P value
+Equal item weighting,280,0.51935,Woman,-0.261636,0.068763,-0.396412,-0.126861,0.000142
+Equal item weighting,280,0.51935,AI knowledge,0.435873,0.049623,0.338612,0.533133,0.0
+Equal item weighting,280,0.51935,AI required likelihood,0.219558,0.058171,0.105542,0.333574,0.00016
+Domain-balanced weighting,280,0.579661,Woman,-0.226501,0.0643,-0.352528,-0.100474,0.000427
+Domain-balanced weighting,280,0.579661,AI knowledge,0.460544,0.046991,0.368442,0.552646,0.0
+Domain-balanced weighting,280,0.579661,AI required likelihood,0.212124,0.052065,0.110076,0.314171,4.6e-05
