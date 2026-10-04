@@ -12,7 +12,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+from matplotlib.patches import FancyBboxPatch, Polygon
 
 INK = "#222222"
 MUTED = "#555555"
@@ -63,41 +63,62 @@ def figure1(out, counts):
                 ha="center", va="center", fontsize=sub_fs,
                 fontweight="normal", color=INK, linespacing=1.10)
 
-    def arrow(x1, y1, x2, y2):
-        ax.add_patch(FancyArrowPatch(
-            (x1, y1), (x2, y2), arrowstyle="->",
-            mutation_scale=23, linewidth=3.0, color=INK,
-            shrinkA=0, shrinkB=0
-        ))
+    def down_arrow(x, y_top, y_tip, head_w=2.6, head_h=3.0):
+        # Draw shaft and arrowhead separately so arrowheads remain clean at
+        # box borders and at the branch junction.
+        base_y = y_tip + head_h
+        ax.plot([x, x], [y_top, base_y], color=INK, linewidth=2.8,
+                solid_capstyle="butt", zorder=2)
+        ax.add_patch(Polygon([[x, y_tip],
+                              [x - head_w / 2, base_y],
+                              [x + head_w / 2, base_y]],
+                             closed=True, facecolor=INK, edgecolor=INK,
+                             zorder=3))
 
-    cx = main_x + main_w / 2
-    box(main_x, 77.0, main_w, 22.0,
+    def right_arrow(x_left, x_tip, y, head_w=3.0, head_h=2.6):
+        base_x = x_tip - head_w
+        ax.plot([x_left, base_x], [y, y], color=INK, linewidth=2.8,
+                solid_capstyle="butt", zorder=2)
+        ax.add_patch(Polygon([[x_tip, y],
+                              [base_x, y - head_h / 2],
+                              [base_x, y + head_h / 2]],
+                             closed=True, facecolor=INK, edgecolor=INK,
+                             zorder=3))
+
+    top_y, top_h = 77.0, 22.0
+    mid_y, mid_h = 43.0, 24.0
+    bot_y, bot_h = 1.0, 23.0
+    side_y, side_h = 24.2, 21.5
+
+    box(main_x, top_y, main_w, top_h,
         "Email invitations sent", f"n = {counts['invited']:,}")
-    arrow(cx, 76.1, cx, 63.0)
-
-    box(main_x, 43.0, main_w, 24.0,
+    box(main_x, mid_y, main_w, mid_h,
         "Records in analysis workbook\nafter original cleaning",
         f"n = {counts['workbook']}")
-
-    ax.plot([cx, cx], [42.2, 35.1], color=INK, linewidth=3.0)
-    ax.plot([cx, side_x], [35.1, 35.1], color=INK, linewidth=3.0)
-    arrow(side_x - 0.2, 35.1, side_x, 35.1)
-    arrow(cx, 35.1, cx, 28.0)
-
-    box(side_x, 24.2, side_w, 21.5,
+    box(side_x, side_y, side_w, side_h,
         "Excluded",
         f"No response to any of the five\nClAIR components: n = {counts['excluded']}",
         weight="normal", title_fs=14.5, sub_fs=13.6)
-
-    box(main_x, 1.0, main_w, 23.0,
+    box(main_x, bot_y, main_w, bot_h,
         "Final ClAIR analytic sample",
         f"n = {counts['analytic']}\nPrimary complete-case regression: n = {counts['primary']}",
         title_fs=15.0, sub_fs=13.3)
 
+    cx = main_x + main_w / 2
+
+    # Top -> middle. Keep the arrowhead fully visible between boxes.
+    down_arrow(cx, top_y - 0.5, mid_y + mid_h + 1.2)
+
+    # Middle -> bottom, with one clean right-hand exclusion branch.
+    branch_y = 35.2
+    ax.plot([cx, cx], [mid_y - 0.4, branch_y], color=INK, linewidth=2.8,
+            solid_capstyle="butt", zorder=2)
+    down_arrow(cx, branch_y, bot_y + bot_h + 3.0)
+    right_arrow(cx, side_x - 0.8, branch_y)
+
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
     fig.savefig(out, dpi=300, transparent=True)
     plt.close(fig)
-
 
 def _label_segment(ax, x_center, y, value):
     if value <= 0:
