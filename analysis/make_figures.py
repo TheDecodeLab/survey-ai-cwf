@@ -13,6 +13,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, Polygon
+from figure_export import export_figure
 
 INK = "#222222"
 MUTED = "#555555"
@@ -117,7 +118,14 @@ def figure1(out, counts):
     right_arrow(cx, side_x - 0.8, branch_y)
 
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-    fig.savefig(out, dpi=300, transparent=True)
+    export_figure(
+        fig,
+        out,
+        1,
+        transparent_png=True,
+        bbox_inches=None,
+        pad_inches=0.0,
+    )
     plt.close(fig)
 
 def _label_segment(ax, x_center, y, value):
@@ -174,7 +182,14 @@ def figure3(out, tabs, stats_):
                    frameon=False, fontsize=9.5, handlelength=1.1,
                    columnspacing=1.4)
     fig.tight_layout(h_pad=3.1)
-    fig.savefig(out, dpi=300, bbox_inches="tight", pad_inches=0.12)
+    export_figure(
+        fig,
+        out,
+        3,
+        transparent_png=False,
+        bbox_inches="tight",
+        pad_inches=0.12,
+    )
     plt.close(fig)
 
 
@@ -214,7 +229,9 @@ def main():
         }
     figure3(outdir / "Figure3.png", tabs, stats_)
     print("wrote", outdir / "Figure1.png")
+    print("wrote", outdir / "Fig1.tif")
     print("wrote", outdir / "Figure3.png")
+    print("wrote", outdir / "Fig3.tif")
 
 
 if __name__ == "__main__":

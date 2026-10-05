@@ -12,6 +12,7 @@ import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from figure_export import export_figure
 
 COLORS5 = ["#FF8A65", "#FFB74D", "#90CAF9", "#64B5F6", "#42A5F5"]
 COLORS4 = ["#FF8A65", "#FFB74D", "#90CAF9", "#42A5F5"]
@@ -29,8 +30,15 @@ plt.rcParams.update({
 })
 
 
-def save(fig, path):
-    fig.savefig(path, dpi=300, bbox_inches="tight", pad_inches=0.08)
+def save(fig, path, figure_number):
+    export_figure(
+        fig,
+        path,
+        figure_number,
+        transparent_png=False,
+        bbox_inches="tight",
+        pad_inches=0.08,
+    )
     plt.close(fig)
 
 
@@ -103,7 +111,7 @@ def figure2(df, out):
     for x in (left, right):
         fig.add_artist(plt.Line2D([x, x], [bottom, top], transform=fig.transFigure,
                                   color="black", linestyle=(0, (4, 4)), linewidth=1.2))
-    save(fig, out)
+    save(fig, out, 2)
 
 
 def workflow_percentages_display(df, col):
@@ -214,7 +222,7 @@ def figure4(df, out):
              fontsize=16, fontweight="bold", va="top")
 
     fig.subplots_adjust(left=0.16, right=0.985, top=0.96, bottom=0.09, hspace=0.30)
-    save(fig, out)
+    save(fig, out, 4)
 
 
 def figure5(df, out):
@@ -252,7 +260,7 @@ def figure5(df, out):
     ax.set_axisbelow(True)
     ax.spines[["top", "right"]].set_visible(False)
     fig.tight_layout()
-    save(fig, out)
+    save(fig, out, 5)
 
 
 def main():
@@ -267,7 +275,12 @@ def main():
     figure2(df, out / "Figure2.png")
     figure4(df, out / "Figure4.png")
     figure5(df, out / "Figure5.png")
-    print("wrote", out / "Figure2.png", out / "Figure4.png", out / "Figure5.png", sep="\n")
+    for name in (
+        "Figure2.png", "Fig2.tif",
+        "Figure4.png", "Fig4.tif",
+        "Figure5.png", "Fig5.tif",
+    ):
+        print("wrote", out / name)
 
 
 if __name__ == "__main__":

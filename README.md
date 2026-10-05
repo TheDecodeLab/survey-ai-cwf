@@ -21,7 +21,7 @@ python analysis/run_all.py --data "/authorized/path/S2 Survey Data.xlsx" --out b
 The command creates:
 
 - `build/tables/`: primary, sensitivity, diagnostic, and supplementary statistical outputs.
-- `build/figures/Figure1.png` through `Figure5.png`.
+- `build/figures/Figure1.png` through `Figure5.png` for local preview, plus PLOS submission files `Fig1.tif` through `Fig5.tif`.
 - `build/S2 File.xlsx`: public de-identified dataset with dictionary and disclosure notes.
 - `build/S3 File.docx`: supplementary statistical tables.
 
@@ -31,7 +31,7 @@ Random procedures use fixed seeds. The reliability bootstrap uses seed `20260905
 
 `analysis/reanalysis.py` creates the primary ClAIR regression with HC3 standard errors and finite-sample t/F reference distributions, internally consistent confidence intervals and p-values, sensitivity models, residual diagnostics, ordinal models, sparse-cell permutation tests, descriptive tables, and robustness outputs. `analysis/enhance_analysis.py` creates predictor-component correlations, bootstrap uncertainty for alpha and omega, the domain-balanced score sensitivity model, and threshold-specific ordinal diagnostics.
 
-`analysis/make_figures.py` generates Figures 1 and 3 from the analysis outputs. `analysis/make_descriptive_figures.py` generates Figures 2, 4, and 5 directly from the source workbook. It identifies fixed multi-select options by exact phrase matching and does not split participant text at commas.
+`analysis/make_figures.py` generates Figures 1 and 3 from the analysis outputs. `analysis/make_descriptive_figures.py` generates Figures 2, 4, and 5 directly from the source workbook. It identifies fixed multi-select options by exact phrase matching and does not split participant text at commas. `analysis/figure_export.py` writes both preview PNGs and submission TIFFs; the TIFFs are flattened RGB, LZW-compressed, 300 dpi, and automatically constrained to the PLOS ONE pixel and file-size limits.
 
 `analysis/deidentify_s2.py` creates the public workbook. `analysis/make_s3.py` creates all supplementary tables from machine-readable outputs. `analysis/run_all.py` executes the complete sequence and stops if any stage fails.
 
@@ -41,11 +41,13 @@ Validate a completed build against the committed machine-readable results:
 python analysis/validate_reproducibility.py --build build --expected analysis/outputs
 ```
 
-The committed CSV and JSON files in `analysis/outputs/` are the values used in the revision. Manuscript figure PNGs are generated locally rather than versioned, so the code remains the single source of truth and stale image binaries cannot drift from it. To write the five submission figures directly to `figures/final/`, run:
+The committed CSV and JSON files in `analysis/outputs/` are the values used in the revision. Generated PNG and TIFF figure binaries are not versioned, so the code remains the single source of truth and stale image files cannot drift from it. To write the five preview PNGs and the five submission TIFFs directly to `figures/final/`, run:
 
 ```bash
 python analysis/make_figures.py --tables analysis/outputs --outdir figures/final
 python analysis/make_descriptive_figures.py --data "/authorized/path/S2 Survey Data.xlsx" --outdir figures/final
 ```
+
+The submission files are named `Fig1.tif` through `Fig5.tif`; the corresponding local preview files remain `Figure1.png` through `Figure5.png`.
 
 `docs/variable_dictionary.csv` documents the fields in the de-identified dataset.
